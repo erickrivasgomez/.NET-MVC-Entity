@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using Training.API.Operations.Users;
+using Training.Data.Models;
 using Training.DTO;
 
 namespace Training.Controllers
@@ -24,13 +25,21 @@ namespace Training.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles="admin")]
         public async Task<List<DTO.User>> GetUsers()
         {
             return await _IoC.GetService<GetAll>().Execute();
         }
-        
+
         [HttpGet]
-        [Route("{id}")]
+        [Authorize(Roles = "admin")]
+        public async Task<List<Order>> GetOrders()
+        {
+            return await _IoC.GetService<GetAllOrders>().Execute();
+        }
+
+        [HttpGet]
+        [Route("/{id}")]
         public DTO.User GetUserById([FromRoute] string id)
         {
 
@@ -51,6 +60,7 @@ namespace Training.Controllers
         [HttpPost]
         [Route("signin")]
         [AllowAnonymous]
+        // [Authorize(Roles="admin")]
         public async Task<DTO.UserAuthorization> SignIn(UserCredentials user)
         {
             return await _IoC.GetService<SignIn>().Execute(user);

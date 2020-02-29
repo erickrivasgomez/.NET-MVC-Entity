@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using Training.API.Contracts;
 using Training.API.Contracts.Services;
 using Training.API.Operations.Users;
+using Training.API.Operations.Products;
 using Training.Data;
 using Training.Data.Repositories;
 using Training.Exceptions;
@@ -80,6 +81,7 @@ namespace Training
             services.AddTransient<GetAll>();
             services.AddTransient<SignUp>();
             services.AddTransient<SignIn>();
+            services.AddTransient<GetAllProducts>();
         }
 
         public void ConfigureInfrastructureServices(IServiceCollection services)
@@ -91,6 +93,7 @@ namespace Training
         public void ConfigureRepositories(IServiceCollection services)
         {
             services.AddTransient<IUsersRepository,UsersRepository>();
+            services.AddTransient<IProductsRepository,ProductsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
