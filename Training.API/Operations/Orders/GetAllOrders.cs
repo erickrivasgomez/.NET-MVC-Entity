@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using Training.API.Contracts;
 
 namespace Training.API.Operations.Orders
 {
@@ -8,14 +10,14 @@ namespace Training.API.Operations.Orders
     {
         private readonly IOrdersRepository _OrdersRepository;
 
-        public GetAll(IOrdersRepository ordersRepository)
+        public GetAllOrders(IOrdersRepository ordersRepository)
         {
             _OrdersRepository = ordersRepository;
         }
 
         public async Task<List<DTO.Order>> Execute()
         {
-            return await _OrdersRepository.GetAll();
+            return await _OrdersRepository.GetAllOrders();
         }
     }
 }

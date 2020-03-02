@@ -8,6 +8,6 @@ namespace Training.Data.Models
     {
         public Guid Id { get; set; }
         public Guid UserId { get; set; }
-        List<OrderProduct> OrderProducts { get; set; }
+        public List<OrderProduct> OrderProducts { get; set; }
     }
 }

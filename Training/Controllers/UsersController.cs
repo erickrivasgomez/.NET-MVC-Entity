@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
+using Training.API.Operations.Orders;
 using Training.API.Operations.Users;
 using Training.Data.Models;
 using Training.DTO;
@@ -33,7 +34,7 @@ namespace Training.Controllers
 
         [HttpGet]
         [Authorize(Roles = "admin")]
-        public async Task<List<Order>> GetOrders()
+        public async Task<List<DTO.Order>> GetOrders()
         {
             return await _IoC.GetService<GetAllOrders>().Execute();
         }
@@ -46,7 +47,7 @@ namespace Training.Controllers
             var userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
             //TODO implement GetUserById Operation
             //return Execute(userId);
-            return new User() { Email = "xxx", Id = "xxx", FullName = "xxx", Gender = "" };
+            return new DTO.User() { Email = "xxx", Id = "xxx", FullName = "xxx", Gender = "" };
         }
 
         [HttpPost]
