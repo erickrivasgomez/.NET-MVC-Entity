@@ -9,5 +9,8 @@ namespace Training.API.Contracts
     public interface IOrdersRepository
     {
         Task<List<Order>> GetAllOrders();
+        Task<Order> Create(Order order);
+        Task<List<Order>> GetOrdersByUser(User user);
+
     }
 }

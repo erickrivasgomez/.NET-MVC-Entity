@@ -26,28 +26,10 @@ namespace Training.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles="admin")]
+        [Authorize(Roles="administrador")]
         public async Task<List<DTO.User>> GetUsers()
         {
             return await _IoC.GetService<GetAll>().Execute();
-        }
-
-        [HttpGet]
-        [Authorize(Roles = "admin")]
-        public async Task<List<DTO.Order>> GetOrders()
-        {
-            return await _IoC.GetService<GetAllOrders>().Execute();
-        }
-
-        [HttpGet]
-        [Route("/{id}")]
-        public DTO.User GetUserById([FromRoute] string id)
-        {
-
-            var userId = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
-            //TODO implement GetUserById Operation
-            //return Execute(userId);
-            return new DTO.User() { Email = "xxx", Id = "xxx", FullName = "xxx", Gender = "" };
         }
 
         [HttpPost]
@@ -61,7 +43,6 @@ namespace Training.Controllers
         [HttpPost]
         [Route("signin")]
         [AllowAnonymous]
-        // [Authorize(Roles="admin")]
         public async Task<DTO.UserAuthorization> SignIn(UserCredentials user)
         {
             return await _IoC.GetService<SignIn>().Execute(user);

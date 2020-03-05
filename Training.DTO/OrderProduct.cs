@@ -12,5 +12,8 @@ namespace Training.DTO
 
         [JsonProperty("product")]
         public Product Product { get; set; }
+
+        [JsonProperty("order")]
+        public Order Order { get; set; }
     }
 }
