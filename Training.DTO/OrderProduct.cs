@@ -10,10 +10,10 @@ namespace Training.DTO
         [JsonProperty("quantity")]
         public int Quantity { get; set; }
 
-        [JsonProperty("product")]
-        public Product Product { get; set; }
+        [JsonProperty("product_id")]
+        public string ProductId { get; set; }
 
-        [JsonProperty("order")]
-        public Order Order { get; set; }
+        [JsonProperty("order_id")]
+        public string OrderId { get; set; }
     }
 }
