@@ -12,18 +12,18 @@ namespace Training.Data.Extensions
             {
                 Id = orderProduct.Id.ToString(),
                 Quantity = orderProduct.Quantity,
-                Product = orderProduct.Product.ToDTO()
+                ProductId = orderProduct.ProductId.ToString()
             };
         }
         public static Models.OrderProduct ToDatabaseModel(this DTO.OrderProduct u)
         {
-            return new Models.OrderProduct
+            Models.OrderProduct nueva = new Models.OrderProduct
             {
-                Id = Guid.Parse(u.Id),
                 Quantity = u.Quantity,
-                Product = u.Product.ToDatabaseModel(),
-                Order = new Models.Order()
+                ProductId = Guid.Parse(u.ProductId)
             };
+            var nueva2 = nueva;
+            return nueva;
         }
     }
 }
