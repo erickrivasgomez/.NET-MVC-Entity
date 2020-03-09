@@ -31,7 +31,6 @@ namespace Training.Data.Extensions
 
             return new Models.Order
             {
-                Id = Guid.Parse(u.Id),
                 UserId = Guid.Parse(u.UserId),
                 OrderProducts = orderProductsModel
             };
