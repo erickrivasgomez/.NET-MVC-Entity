@@ -39,6 +39,11 @@ namespace Training.Controllers
         [HttpPost]
         public async Task<Order> PostAsync([FromBody] Order order)
         {
+            User user = new User()
+            {
+                Id = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value,
+            };
+            order.UserId = user.Id;
             return await _IoC.GetService<AddOrder>().Execute(order);
         }
 
