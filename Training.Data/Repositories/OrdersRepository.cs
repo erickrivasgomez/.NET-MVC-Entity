@@ -26,12 +26,11 @@ namespace Training.Data.Repositories
 
         public async Task<Order> Create(DTO.Order order)
         {
-            var orderProdTemp = order.ToDatabaseModel().OrderProducts;
             var orderTemp = order.ToDatabaseModel();
 
             Models.Order orderDB = new Models.Order()
             {
-                UserId = orderTemp.Id,
+                UserId = orderTemp.UserId,
                 OrderProducts = orderTemp.OrderProducts
             };
 
