@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace Training.DTO
 {
+    [JsonObject]
     public class Order
     {
         [JsonProperty("id")]
@@ -12,6 +13,6 @@ namespace Training.DTO
         public string UserId { get; set; }
 
         [JsonProperty("order_products")]
-        public List<OrderProduct> OrderProducts { get; set; }
+        public List<OrderProduct> OrderProducts { get; set; } // Mapper pendiente
     }
 }
