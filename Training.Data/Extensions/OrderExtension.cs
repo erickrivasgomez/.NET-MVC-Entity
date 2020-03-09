@@ -7,7 +7,8 @@
             return new DTO.Order
             {
                 Id = u.Id.ToString(),
-                UserId = u.UserId.ToString()
+                UserId = u.UserId.ToString(),
+                OrderProducts = orderProductsDTO
             };
         }
 
