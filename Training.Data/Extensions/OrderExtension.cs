@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Training.Data.Extensions
+﻿namespace Training.Data.Extensions
 {
     public static class OrderExtension
     {
         public static DTO.Order ToDTO(this Models.Order u)
         {
-            List<DTO.OrderProduct> orderProductsDTO = new List<DTO.OrderProduct>();
-            foreach (Models.OrderProduct orderProduct in u.OrderProducts)
-            {
-                orderProductsDTO.Add(orderProduct.ToDTO());
-            }
-
             return new DTO.Order
             {
                 Id = u.Id.ToString(),
