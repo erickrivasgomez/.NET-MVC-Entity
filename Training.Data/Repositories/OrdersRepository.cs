@@ -19,44 +19,32 @@ namespace Training.Data.Repositories
         }
         public async Task<List<Order>> GetAllOrders()
         {
-            var orders = await _StoreContext.Orders.ToListAsync();
+            var orders = await _StoreContext.Orders.Include(x => x.OrderProducts).ToListAsync();
             var ordersDTOList = orders.Select(x => x.ToDTO()).ToList();
             return ordersDTOList;
         }
 
         public async Task<Order> Create(DTO.Order order)
         {
+            var orderProdTemp = order.ToDatabaseModel().OrderProducts;
+            var orderTemp = order.ToDatabaseModel();
+
             Models.Order orderDB = new Models.Order()
             {
-                UserId = Guid.Parse(order.UserId)
+                UserId = orderTemp.Id,
+                OrderProducts = orderTemp.OrderProducts
             };
+
 
             var d = await _StoreContext.AddAsync(orderDB);
             await _StoreContext.SaveChangesAsync();
-            order = d.Entity.ToDTO();
-            
-            /*
-            foreach (DTO.OrderProduct orderProduct in order.OrderProducts)
-            {
-                Models.OrderProduct orderProductDB = new Models.OrderProduct()
-                {
-                    Quantity = orderProduct.Quantity,
-                    ProductId = Guid.Parse(orderProduct.Product.Id),
-                    OrderId = Guid.Parse(order.Id),
-                };
-                
-                await _StoreContext.AddAsync(orderProductDB);
-                await _StoreContext.SaveChangesAsync();
-            }
-            */
-
-            return order;
+            return d.Entity.ToDTO();
         }
 
         public async Task<List<Order>> GetOrdersByUser(User user)
         {
-            var orders = await _StoreContext.Orders.ToListAsync();
-            var ordersDTOList = orders.Where(x => x.UserId.ToString() .Equals((user.Id))).Select(x => x.ToDTO()).ToList();
+            var orders = await _StoreContext.Orders.Include(x => x.OrderProducts).ToListAsync();
+            var ordersDTOList = orders.Where(x => x.UserId.ToString().Equals((user.Id))).Select(x => x.ToDTO()).ToList();
             return ordersDTOList;
         }
     }
