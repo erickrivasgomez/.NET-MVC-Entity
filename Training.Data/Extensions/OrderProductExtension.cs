@@ -1,21 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Training.Data.Extensions
 {
     public static class OrderProductExtension
     {
-        public static List<DTO.OrderProduct> ToDTO(this List<Models.OrderProduct> orderProducts)
-        {
-            List<DTO.OrderProduct> OrderProductToDTO = new List<DTO.OrderProduct>();
-
-            foreach (Models.OrderProduct orderProduct in orderProducts)
-            {
-                OrderProductToDTO.Add(orderProduct.ToDTO());
-            }
-
-            return OrderProductToDTO;
-        }
-
+        
         public static DTO.OrderProduct ToDTO(this Models.OrderProduct orderProduct)
         {
             return new DTO.OrderProduct
@@ -23,6 +13,16 @@ namespace Training.Data.Extensions
                 Id = orderProduct.Id.ToString(),
                 Quantity = orderProduct.Quantity,
                 Product = orderProduct.Product.ToDTO()
+            };
+        }
+        public static Models.OrderProduct ToDatabaseModel(this DTO.OrderProduct u)
+        {
+            return new Models.OrderProduct
+            {
+                Id = Guid.Parse(u.Id),
+                Quantity = u.Quantity,
+                Product = u.Product.ToDatabaseModel(),
+                Order = new Models.Order()
             };
         }
     }
