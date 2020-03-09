@@ -26,9 +26,12 @@ namespace Training.Data.Repositories
 
         public async Task<Order> Create(DTO.Order order)
         {
+            var orderTemp = order.ToDatabaseModel();
+
             Models.Order orderDB = new Models.Order()
             {
-                UserId = Guid.Parse(order.UserId)
+                UserId = orderTemp.UserId,
+                OrderProducts = orderTemp.OrderProducts
             };
 
             var d = await _StoreContext.AddAsync(orderDB);
