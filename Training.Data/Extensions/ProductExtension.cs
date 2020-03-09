@@ -15,5 +15,15 @@ namespace Training.Data.Extensions
                 Price = u.Price
             };
         }
+
+        public static Models.Product ToDatabaseModel(this DTO.Product u)
+        {
+            return new Models.Product
+            {
+                Id = Guid.Parse(u.Id),
+                Name = u.Name,
+                Price = u.Price
+            };
+        }
     }
 }
